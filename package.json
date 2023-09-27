@@ -1,0 +1,30 @@
+{
+  "name": "t197bot",
+  "version": "1.0.0",
+  "description": "a bot desigined by students of george brown college's t197 program",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnEdgyVeggie/GeorgeBrownT197DiscordBot.git"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "george",
+    "brown",
+    "college",
+    "t197"
+  ],
+  "author": "Ethan Sylvester, Nhan Tran, Amanda (Jay)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnEdgyVeggie/GeorgeBrownT197DiscordBot/issues"
+  },
+  "homepage": "https://github.com/AnEdgyVeggie/GeorgeBrownT197DiscordBot#readme",
+  "dependencies": {
+    "discord.js": "^14.13.0"
+  }
+}
