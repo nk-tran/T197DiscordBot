@@ -15,6 +15,11 @@ const commands = [
     {
         name: 'flip_coin',
         description: 'Randomly returns head or tail',
+    },
+
+    {
+        name: 'text',
+        description: 'pull text'
     }
 ];
 

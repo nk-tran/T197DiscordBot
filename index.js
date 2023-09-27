@@ -35,6 +35,22 @@ client.on('interactionCreate', async interaction => {
         }
         flip();
     }
+
+    if (interaction.commandName === 'text') {
+        async function fetchText() {
+            fetch('https://pastebin.com/raw/pj6UQdcc')
+                .then(res => res.text())
+                .then(text => {
+                    interaction.reply(text);
+                })
+               .catch(err => {
+                    console.error(err);
+                    interaction.reply('Error fetching text');
+                });
+        }
+        fetchText();
+
+    }
 });
 
 client.on('typingStart', async (interaction) => {
