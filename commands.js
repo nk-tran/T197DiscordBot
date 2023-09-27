@@ -15,6 +15,11 @@ const commands = [
     {
         name: 'flip_coin',
         description: 'Randomly returns head or tail',
+    },
+
+    {
+      name: 'due_dates',
+      description: 'Returns due dates for the current month',
     }
 ];
 

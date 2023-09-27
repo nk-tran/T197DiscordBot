@@ -16,8 +16,8 @@ client.on('interactionCreate', async interaction => {
 
     if (interaction.commandName === 'hi_function') {
         function sayHi() {
-            interaction.reply('Hi');
-            interaction.reply(interaction);
+            // interaction.reply(`Hi, ${interaction.user.username}`);
+            interaction.reply(`Hi, ${interaction.member.nickname}`);
             console.log(interaction);
         }
         sayHi();
