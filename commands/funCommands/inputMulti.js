@@ -23,6 +23,8 @@ module.exports = {
         console.log(`User entered Text 1: ${courseName}`);
         console.log(`User entered Text 2: ${courseType}`);
         console.log(`User entered Text 2: ${dueDate}`);
-        await interaction.reply(`The due date for ${courseName}:${courseType}  is ${dueDate}`);
+        //To add write/read feature to dates.txt
+
+        await interaction.reply(`The due date for ${courseName}:${courseType} is ${dueDate}`);
     }
 }
