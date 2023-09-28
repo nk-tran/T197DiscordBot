@@ -26,8 +26,8 @@ module.exports = {
         // Get the current date and time
         const currentDate = new Date();
         const currentTime = currentDate.toLocaleString(); // Format as a readable string
-        const currentCode = `**${atklassCode}**\n${chooseClass}. Submitted by: ${username} on ${currentTime}\n`;
-
+        const historyCode = `**${atklassCode}**\n${chooseClass}. Submitted by: ${username} on ${currentTime}\n`;
+        const currentCode = `**${atklassCode}**\n${chooseClass}.\nLast updated: ${currentTime}\nSubmitted by: ${username}\n`;
         let path = './records/atklass.txt';
         let pathHistory = './records/atklassHistory.txt';
 
@@ -40,13 +40,13 @@ module.exports = {
             }
         });
 
-        fs.appendFile(pathHistory, currentCode, (err) => {
+        fs.appendFile(pathHistory, historyCode, (err) => {
             if (err) {
                 console.error('Error writing due date to file:', err);
             } else {
                 console.log('Atklass written to file successfully.');
             }
         });
-        await interaction.reply(`**${atklassCode}**\n${chooseClass}. Submitted by: ${username} on ${currentTime}`);
+        await interaction.reply(`**${atklassCode}**\n${chooseClass}.\nLast updated: ${currentTime}\nSubmitted by: ${username}\n`);
     }
 }
