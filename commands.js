@@ -18,8 +18,8 @@ const commands = [
     },
 
     {
-        name: 'text',
-        description: 'pull text'
+      name: 'due_dates',
+      description: 'Returns due dates for the current month',
     }
 ];
 
