@@ -2,10 +2,10 @@ const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('due_dates')
+        .setName('not_in_use')
         .setDescription('See upcoming due dates'),
     async execute(interaction) {
-        fetch('https://pastebin.com/raw/m0wxYchg')
+        fetch('https://codeshare.io/AdwlMN')
             .then(res => res.text())
             .then(text => {
                 interaction.reply(text);
