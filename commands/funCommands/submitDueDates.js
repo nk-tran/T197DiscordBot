@@ -23,6 +23,22 @@ module.exports = {
                 .setDescription('Enter due date (e.g., YYYY-MM-DD)')
                 .setRequired(true)),
     async execute(interaction) {
+        ////////////////////////////////////Verification block///////////////////////////////////////////
+        const user = interaction.user.username;
+        const role = interaction.member.roles.cache
+        let permission = false;
+        // checks each of your roles to see if any of your toles match Botters or trust
+        role.forEach(element => {
+            if (element.name === "Botters" || element.name === "trust")
+                permission = true
+        })
+        // if you had the necessary role, this will be enabled
+        if (!permission) {
+            // if you don't have permissions, go away
+            await interaction.reply(`# Sorry ${user},\n you do not have bot permissions\n # PERMISSION DENIED`);
+            return;
+        }
+        /////////////////////////////////////End of verification block///////////////////////////////////
         const courseName = interaction.options.getString('course_name');
         const courseType = interaction.options.getString('assignment_type');
         const dueDate = interaction.options.getString('due_date');
