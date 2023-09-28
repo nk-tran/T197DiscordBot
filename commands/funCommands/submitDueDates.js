@@ -31,7 +31,7 @@ module.exports = {
         console.log(`User entered Text 2: ${dueDate}`);
 
         // Inside the execute function, after getting the inputs
-        const dueDateEntry = `${courseName}:${courseType} due on ${dueDate}\n`;
+        const dueDateEntry = `${courseName}: ${courseType} due on ${dueDate}\n`;
 
         let path = './records/assignment.txt';
         if (courseType.toLowerCase() === 'test') {

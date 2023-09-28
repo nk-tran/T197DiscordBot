@@ -3,7 +3,7 @@ const fs = require('fs');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('see_due_dates')
+        .setName('due_dates')
         .setDescription('See upcoming due dates'),
     async execute(interaction) {
         // File paths for the three files
@@ -60,6 +60,7 @@ module.exports = {
             const combinedData = `${testData}\n${assignmentData}\n${labData}`;
 
             // Send the combined data as a reply
+            console.log('combinedData sent')
             interaction.reply(`${combinedData}`);
         } catch (error) {
             console.error('Error reading files:', error);
