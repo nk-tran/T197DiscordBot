@@ -1,68 +1,61 @@
-const { Client, GatewayIntentBits  } = require('discord.js');
+// For navigating the filesystem / seperation of commands
+const filesystem = require("node:fs");
+const path = require("node:path");
+
+const { Client, GatewayIntentBits, Collection  } = require('discord.js');
 require('dotenv').config();
 
+// Instantiates client               GUILDS ARE DISCORD SERVERS
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
+// creates a collection that will store all the commands
+client.commands = new Collection();
+// sets path to COMMANDS FOLDER
+const foldersPath = path.join(__dirname, 'commands');
+// adds the folders inside folders path (commands) into an array
+const commandFolders = filesystem.readdirSync(foldersPath);
+
+for (const folder of commandFolders) {
+    // sets path to COMMANDS
+    const commandsPath = path.join(foldersPath, folder);
+    // adds commands to an array
+    const commandFiles = filesystem.readdirSync(commandsPath)
+    .filter(file => file.endsWith('.js'))
+
+    for (const file of commandFiles) {
+        const filePath = path.join(commandsPath, file);
+        const command = require(filePath)
+        
+        // sets a new item in the collection with the key
+        // as the command name and the value as the exported module
+        if ('data' in command && 'execute' in command) {
+            client.commands.set(command.data.name, command)
+
+        } else {
+            console.log(`[[WARNING]] --- the command at ${filePath} is missing 
+            the required DATA or EXECUTE property that qualifies it as a command`);
+        }
+    }
+}
+
+const eventsPath = path.join(__dirname, 'events');
+const eventFiles = filesystem.readdirSync(eventsPath)
+    .filter(file => file.endsWith('.js'));
+
+for (const file of eventFiles) {
+    const filePath = path.join(eventsPath, file);
+    const event = require(filePath);
+    if (event.once) {
+        client.once(event.name, (...args) => event.execute(...args));
+    }  else {
+        client.on(event.name, (...args) => event.execute(...args));
+    }
+}
+
+// initialize server
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 });
 
-client.on('interactionCreate', async interaction => {
-    if (!interaction.isChatInputCommand()) return;
-
-    if (interaction.commandName === 'ping') {
-        await interaction.reply('Returning ping interaction from commands..');
-    }
-
-    if (interaction.commandName === 'hi_function') {
-        function sayHi() {
-            // interaction.reply(`Hi, ${interaction.user.username}`);
-            interaction.reply(`Hi, ${interaction.member.nickname}`);
-            console.log(interaction);
-        }
-        sayHi();
-    }
-
-    if (interaction.commandName === 'flip_coin') {
-        function flip() {
-            let val = Math.floor(Math.random()*2)
-            let result;
-            if(val === 0)
-                result = 'Heads'
-            else
-                result = 'Tails'
-            interaction.reply(result);
-        }
-        flip();
-    }
-
-    if (interaction.commandName === 'text') {
-        async function fetchText() {
-            fetch('https://pastebin.com/raw/pj6UQdcc')
-                .then(res => res.text())
-                .then(text => {
-                    interaction.reply(text);
-                })
-               .catch(err => {
-                    console.error(err);
-                    interaction.reply('Error fetching text');
-                });
-        }
-        fetchText();
-
-    }
-});
-
-client.on('typingStart', async (interaction) => {
-    console.log('Started typing');
-});
-client.on('typingStop', async (interaction) => {
-    console.log('Stopped typing');
-});
-client.on('messageCreate', async (message) => {
-    if (message.content === 'ping') {
-        await message.reply('Pong!');
-    }
-});
 
 client.login(process.env.TOKEN);
