@@ -2,8 +2,8 @@ const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('text')
-        .setDescription('Fetches text file'),
+        .setName('due_dates')
+        .setDescription('See upcoming due dates'),
     async execute(interaction) {
         fetch('https://pastebin.com/raw/m0wxYchg')
             .then(res => res.text())
