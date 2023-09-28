@@ -11,8 +11,13 @@ module.exports = {
                 .setRequired(true))
         .addStringOption(option =>
             option.setName('assignment_type')
-                .setDescription('Enter type of assignment (e.g., Lab/Assignment/Test)')
-                .setRequired(true))
+                .setDescription('Choose which category the assignment belongs to')
+                .setRequired(true)
+                .addChoices(
+                    { name: 'Test', value: 'test' },
+                    { name: 'Assignment', value: 'assignment' },
+                    { name: 'Lab', value: 'lab' }
+                ))
         .addStringOption(option =>
             option.setName('due_date')
                 .setDescription('Enter due date (e.g., YYYY-MM-DD)')
@@ -28,8 +33,13 @@ module.exports = {
         // Inside the execute function, after getting the inputs
         const dueDateEntry = `${courseName}:${courseType} due on ${dueDate}\n`;
 
-        const path = './records/test.txt';
-        // Write the due date entry to a text file
+        let path = './records/assignment.txt';
+        if (courseType.toLowerCase() === 'test') {
+            path = './records/test.txt';
+        } else if (courseType.toLowerCase() === 'lab') {
+            path = './records/lab.txt';
+        }
+
         fs.appendFile(path, dueDateEntry, (err) => {
             if (err) {
                 console.error('Error writing due date to file:', err);
@@ -37,7 +47,6 @@ module.exports = {
                 console.log('Due date written to file successfully.');
             }
         });
-
-        await interaction.reply(`Thanks for updating. Coursename:${courseName}, Type:${courseType}, Due: ${dueDate}`);
+        await interaction.reply(`Thanks for updating. Coursename: ${courseName}, Type: ${courseType}, Due: ${dueDate}`);
     }
 }

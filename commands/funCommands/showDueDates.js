@@ -6,22 +6,64 @@ module.exports = {
         .setName('see_due_dates')
         .setDescription('See upcoming due dates'),
     async execute(interaction) {
-        // File path:
-        const path = './records/test.txt';
+        // File paths for the three files
+        const testPath = './records/test.txt';
+        const assignmentPath = './records/assignment.txt';
+        const labPath = './records/lab.txt';
 
-        // Read the file contents asynchronously
-        fs.readFile(path, 'utf8', (err, data) => {
-            if (err) {
-                console.error('Error reading the file:', err);
-                return;
-            }
+        // Read the contents of the three files
+        const readTestFile = () => {
+            return new Promise((resolve, reject) => {
+                fs.readFile(testPath, 'utf8', (err, data) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(data);
+                    }
+                });
+            });
+        };
 
-            // Process the file contents (in this case, simply logging them)
-            console.log('File Contents:');
-            console.log(data);
-            interaction.reply(data);
-            // You can parse and work with the file contents here
-            // For example, you can split the content into lines using data.split('\n')
-        });
+        const readAssignmentFile = () => {
+            return new Promise((resolve, reject) => {
+                fs.readFile(assignmentPath, 'utf8', (err, data) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(data);
+                    }
+                });
+            });
+        };
+
+        const readLabFile = () => {
+            return new Promise((resolve, reject) => {
+                fs.readFile(labPath, 'utf8', (err, data) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(data);
+                    }
+                });
+            });
+        };
+
+        // Use Promise.all to read all three files concurrently
+        try {
+            const [testData, assignmentData, labData] = await Promise.all([
+                readTestFile(),
+                readAssignmentFile(),
+                readLabFile(),
+            ]);
+
+            // Combine the contents of the three files
+            const combinedData = `${testData}\n${assignmentData}\n${labData}`;
+
+            // Send the combined data as a reply
+            interaction.reply(`${combinedData}`);
+        } catch (error) {
+            console.error('Error reading files:', error);
+            interaction.reply('An error occurred while reading the files.');
+        }
     }
-}
+};
