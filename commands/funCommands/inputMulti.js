@@ -10,11 +10,11 @@ module.exports = {
                 .setRequired(true))
         .addStringOption(option =>
             option.setName('assignment_type')
-                .setDescription('Enter type of assignment')
+                .setDescription('Enter type of assignment (e.g., Lab/Assignment/Test)')
                 .setRequired(true))
         .addStringOption(option =>
             option.setName('due_date')
-                .setDescription('Enter due date')
+                .setDescription('Enter due date (e.g., YYYY-MM-DD)')
                 .setRequired(true)),
     async execute(interaction) {
         const courseName = interaction.options.getString('course_name');
