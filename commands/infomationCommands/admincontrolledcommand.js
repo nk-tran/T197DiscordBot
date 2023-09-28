@@ -24,6 +24,6 @@ module.exports = {
             // this line for testing to be less obnoxious on main
             // await interaction.reply(`${user} is testing a function.. pls look away, its embarrassing...`);
 
-            await interaction.reply(` # PERMISSION GRANTED \n${user} you have permission to write to bots\n`);
+            await interaction.reply(`# PERMISSION GRANTED \n${user}, you have permission to write to bots\n`);
     } 
 }
