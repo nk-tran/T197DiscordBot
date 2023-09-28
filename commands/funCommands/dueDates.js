@@ -5,7 +5,7 @@ module.exports = {
         .setName('due_dates')
         .setDescription('See upcoming due dates'),
     async execute(interaction) {
-        fetch('https://pastebin.com/raw/m0wxYchg')
+        fetch('https://codeshare.io/AdwlMN')
             .then(res => res.text())
             .then(text => {
                 interaction.reply(text);
