@@ -55,8 +55,8 @@ module.exports = {
             });
         };
 
-        // Splitting lines by specific class.
-        const splitLines = () => {
+        // Splitting assignment lines by specific class.
+        const splitAssignmentLines = () => {
             return new Promise((resolve, reject) => {
                 fs.readFile(assignmentPath, 'utf-8', (err, data) => {
                     if (err) {
@@ -76,20 +76,38 @@ module.exports = {
             });
         }
 
+        // Splitting test lines by specific class.
+        // const splitTestLines = () => {
+        //     return new Promise((resolve, reject) => {
+        //         fs.readFile(testPath, 'utf-8', (err, data) => {
+        //             if (err) {
+        //                 reject(err);
+        //             } else {
+        //                 lines = data.split('\n');
+
+        //                 for (let i = 0; i < lines.length; i++) {
+        //                     if (lines[i].includes('Java')) {
+        //                         javaLines.push('\n' + lines[i]);
+        //                         resolve(javaLines);
+        //                     }
+        //                 }
+        //             }
+        //         });
+        //     });
+        // }
+
         // Reads all three files.
         
-            const [testData, assignmentData, labData, lineTest] = await Promise.all([
-                readTests(),
-                readAssignments(),
-                readLabs(),
-                splitLines(),
+            const [assignmentData] = await Promise.all([
+                splitAssignmentLines()
             ]);
 
         await interaction.reply("CSI: https://learn.georgebrown.ca/d2l/le/content/130990/viewContent/7523940/View\n" +
                                 "```" + `Professor: Mohammad Kiani\n` + 
                                 `Professor Contact: Mohammad.Kiani@georgebrown.ca\n` +
                                 `Class Times: Tuesday 6:00PM - 10:00PM\n` + 
-                                `Upcoming Due Dates: ${lineTest}\n` + "```");
+                                `Upcoming Assignments: ${assignmentData}\n` + 
+                                `Upcoming Tests: ` + "```");
 
     } 
 }
