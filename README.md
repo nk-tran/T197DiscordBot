@@ -5,3 +5,4 @@ A bot designed by students of t197 program to assist with commonly asked questio
 - [ ] Add more commands
 - [ ] Add more functionality
 - [ ] Look cute
+.
